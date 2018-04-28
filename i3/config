@@ -30,7 +30,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec termite -c  ~/.config/termite/config
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -176,16 +176,13 @@ set $alt mod1
 set $mod mod4
 bindsym control+$alt+l exec i3lock -i ~/lockscreen.png
 
-for_window [class="^.*"] border pixel 0
 bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`'
 
-exec --no-start-id compton -b
-
-bindsym $alt+space exec --no-startup-id rofi -show run
-bindsym $alt+d exec --no-startup-id rofi -show window
+bindsym $alt+space exec --no-startup-id rofi -show run -lines 6 -separator-style solid -font "misc tamsyn 16" -width 35 -hide-scrollbar -opacity "85"
+bindsym $alt+d exec --no-startup-id rofi -show window -lines 6 -separator-style solid -font "misc tamsyn 16" -width 35 -hide-scrollbar -opacity "85"
 exec_always --no-startup-id $HOME/.config/polybar/startup.sh
 
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 5
 
 set $gaps_inner 0
 set $gaps_outer 0
@@ -198,6 +195,8 @@ gaps outer $gaps_outer
 bindsym $mod+Shift+z gaps inner all set 0, gaps outer all set 0
 bindsym $mod+Shift+x gaps inner all set $gaps_inner, gaps outer all set $gaps_outer
 
-bindsym $mod+bracketright gaps inner all plus $gaps_inner_change; gaps outer all plus $gaps_outer_change 
-bindsym $mod+bracketleft gaps inner all minus $gaps_inner_change; gaps outer all minus $gaps_outer_change 
+bindsym $mod+bracketright gaps inner all plus $gaps_inner_change; gaps outer all plus $gaps_outer_change
+bindsym $mod+bracketleft gaps inner all minus $gaps_inner_change; gaps outer all minus $gaps_outer_change
 
+exec_always feh --bg-scale ~/Downloads/wallpaper.png
+exec_always --no-startup-id compton -b
